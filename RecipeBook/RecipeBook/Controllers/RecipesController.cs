@@ -100,6 +100,52 @@ namespace RecipeBook.Controllers
             return NoContent();
         }
 
+        [HttpPut("recipes/{id}/increment-views")]
+        public async Task<IActionResult> IncrementRecipeViews(int id)
+        {
+            var recipe = await _context.Recipes.FindAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            recipe.ViewsCount++;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+        [HttpPut("recipes/{id}/increment-likes")]
+        public async Task<IActionResult> IncrementRecipeLikes(int id)
+        {
+            var recipe = await _context.Recipes.FindAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            recipe.LikeCount++;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("recipes/{id}/increment-dislikes")]
+        public async Task<IActionResult> IncrementRecipeDislikes(int id)
+        {
+            var recipe = await _context.Recipes.FindAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            recipe.DislikeCount++;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool RecipeExists(int id)
         {
             return _context.Recipes.Any(e => e.RecipeId == id);

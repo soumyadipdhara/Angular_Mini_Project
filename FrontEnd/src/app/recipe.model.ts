@@ -1,6 +1,8 @@
 // frontend/recipe.model.ts
 
 export interface Recipe {
+    isDisliked: any;
+    isLiked: any;
     recipeId: number;
     name: string;
     image: string;

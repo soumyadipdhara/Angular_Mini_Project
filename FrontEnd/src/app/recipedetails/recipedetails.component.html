@@ -1,10 +1,19 @@
 <div *ngIf="recipe">
   <button (click)="addToFavourite(recipe)">Add to favourite</button>
-    <h2>{{ recipe.name }}</h2>
-    <p>Description: {{ recipe.description }}</p>
-    <p>Preparation Time: {{ recipe.cookingtime }}</p>
-    <p>Likes:{{recipe.likeCount}}</p>
-    <!-- Add more details here -->
+  <h2>{{ recipe.name }}</h2>
+  <p>Description: {{ recipe.description }}</p>
+  <p>Preparation Time: {{ recipe.cookingtime }}</p>
+  <p>Likes: {{ recipe.likeCount }}</p>
+  <!-- Like button with conditional styling -->
+  <button (click)="likeRecipe(recipe)"
+          [ngClass]="{'liked': recipe.isLiked, 'disabled': recipe.isDisliked}">
+    Like
+  </button>
+  <!-- Dislike button with conditional styling -->
+  <button (click)="dislikeRecipe(recipe)"
+          [ngClass]="{'disliked': recipe.isDisliked, 'disabled': recipe.isLiked}">
+    Dislike
+  </button>
 
-  </div>
   
+</div>

@@ -1,0 +1,14 @@
+/* Add this CSS in your component's CSS file */
+button.liked {
+    color: green; /* Change the color to indicate liked */
+  }
+  
+  button.disliked {
+    color: red; /* Change the color to indicate disliked */
+  }
+  
+  button.disabled {
+    pointer-events: none; /* Disable pointer events for the button */
+    opacity: 0.5; /* Reduce opacity to visually indicate button is disabled */
+  }
+  

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router,RouterStateSnapshot  } from '@angular/router';
 import { Recipe } from '../recipe.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recipedetails',
@@ -14,6 +15,7 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipedetailsComponent implements OnInit {
   recipe: Recipe | undefined;
+  
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -78,6 +80,62 @@ export class RecipedetailsComponent implements OnInit {
     );
   }
   
+  activeButton: string | null = null;
+
+likeRecipe(recipe: Recipe): void {
+  if (!recipe.isLiked) {
+    recipe.likeCount++;
+    recipe.isLiked = true;
+    if (recipe.isDisliked) {
+      recipe.dislikeCount--;
+      recipe.isDisliked = false;
+    }
+    // Call API to update like count
+    this.updateLikeCount(recipe.recipeId, recipe.likeCount).subscribe(
+      () => {
+        console.log('Like count updated successfully.');
+      },
+      error => {
+        console.error('Error updating like count:', error);
+        // Handle error
+      }
+    );
+    this.activeButton = 'like'; // Set the active button to 'like'
+  }
+}
+
+dislikeRecipe(recipe: Recipe): void {
+  if (!recipe.isDisliked) {
+    recipe.dislikeCount++;
+    recipe.isDisliked = true;
+    if (recipe.isLiked) {
+      recipe.likeCount--;
+      recipe.isLiked = false;
+    }
+    // Call API to update dislike count
+    this.updateDislikeCount(recipe.recipeId, recipe.dislikeCount).subscribe(
+      () => {
+        console.log('Dislike count updated successfully.');
+      },
+      error => {
+        console.error('Error updating dislike count:', error);
+        // Handle error
+      }
+    );
+    this.activeButton = 'dislike'; // Set the active button to 'dislike'
+  }
+}
   
+
+  private updateLikeCount(recipeId: number, likeCount: number): Observable<any> {
+    const url = `https://localhost:7143/api/Recipes/recipes/${recipeId}/increment-likes
+    `;
+    return this.http.put(url, null);
+  }
+
+  private updateDislikeCount(recipeId: number, dislikeCount: number): Observable<any> {
+    const url = `https://localhost:7143/api/Recipes/recipes/${recipeId}/increment-dislikes`;
+    return this.http.put(url, null);
+  }
   
 }

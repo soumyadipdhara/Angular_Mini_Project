@@ -37,8 +37,18 @@ export class UserComponent implements OnInit {
   }
 
 
-  onRecipeClicked(recipe: Recipe){
-    this.router.navigate(['/recipedetails', recipe.recipeId], { state: { recipe } });
+  onRecipeClicked(recipe: Recipe): void {
+    this.http.put(`https://localhost:7143/api/Recipes/recipes/${recipe.recipeId}/increment-views`, {}).subscribe(
+      () => {
+        console.log('View count incremented successfully');
+        // Optionally, you can navigate to the recipe details page after the view count is updated
+        this.router.navigate(['/recipedetails', recipe.recipeId], { state: { recipe } });
+      },
+      error => {
+        console.error('Error incrementing view count:', error);
+        // Handle error
+      }
+    );
   }
 
 }
