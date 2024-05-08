@@ -1,0 +1,34 @@
+
+<div class="container">
+    <h1>Registration Form</h1>
+    <form [formGroup]="Register" (ngSubmit)="onSubmit()" class="card">
+        <div>
+          <label for="name">User Name:</label>
+          <input type="text" id="name" formControlName="name">
+          <div *ngIf="Register.get('name')?.invalid && (Register.get('name')?.dirty || Register.get('name')?.touched)">
+              <div *ngIf="Register.get('name')?.errors?.['required']" style="color:red">name is required.</div>
+              <div *ngIf="Register.get('name')?.errors?.['maxlength']" style="color:red">name must be at most 30 characters.</div>
+          </div>
+        </div>
+        
+        <div>
+          <label for="type">type:</label>
+          <input type="type" id="type" formControlName="type">
+          <div *ngIf="Register.get('type')?.invalid && (Register.get('type')?.dirty || Register.get('type')?.touched)">
+              <div *ngIf="Register.get('type')?.errors?.['required']" style="color:red">type is required.</div> 
+              <div *ngIf="Register.get('type')?.errors?.['type']" style="color:red">Invalid type format.</div>
+          </div>
+          </div>
+        
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" formControlName="password">
+            <div *ngIf="Register.get('password')?.invalid && (Register.get('password')?.dirty || Register.get('password')?.touched)">
+              <div *ngIf="Register.get('password')?.errors?.['required']" style="color:red">Password is required.</div>
+            </div>
+          </div>
+        <button type="submit">Submit</button>
+      </form>   
+      <a href="login">Alrady have account? please Log In</a>
+</div>
+

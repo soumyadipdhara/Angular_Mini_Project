@@ -1,0 +1,31 @@
+<h2>Add Recipe</h2>
+<form (submit)="addRecipe()">
+  <label>Name:</label>
+  <input type="text" [(ngModel)]="newRecipe.name" name="name" required>
+
+  <label>Image:</label>
+  <input type="text" [(ngModel)]="newRecipe.image" name="image" required>
+
+  <label>Description:</label>
+  <textarea [(ngModel)]="newRecipe.description" name="description" required></textarea>
+
+  <label>Like Count:</label>
+  <input type="number" [(ngModel)]="newRecipe.likeCount" name="likeCount" required>
+
+  <label>Dislike Count:</label>
+  <input type="number" [(ngModel)]="newRecipe.dislikeCount" name="dislikeCount" required>
+
+  <label>Views Count:</label>
+  <input type="number" [(ngModel)]="newRecipe.viewsCount" name="viewsCount" required>
+
+  <label>Cooking Time:</label>
+  <input type="number" [(ngModel)]="newRecipe.cookingtime" name="cookingtime" required>
+
+  <label>Nutrition:</label>
+  <input type="number" [(ngModel)]="newRecipe.nutrition" name="nutrition" required>
+
+  <label>User ID:</label>
+  <input type="number" [(ngModel)]="newRecipe.userId" name="userId" required>
+
+  <button type="submit">Add Recipe</button>
+</form>

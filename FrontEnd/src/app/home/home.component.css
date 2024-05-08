@@ -1,0 +1,43 @@
+.container {
+    max-width: 800px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button {
+    margin: 0 10px;
+}
+
+.button button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button button:hover {
+    background-color: #0056b3;
+}
+
+.button button:focus {
+    outline: none;
+}
+
+.button button:active {
+    transform: translateY(1px);
+}

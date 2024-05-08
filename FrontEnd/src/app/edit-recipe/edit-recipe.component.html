@@ -1,0 +1,41 @@
+<!-- edit-recipe.component.html -->
+
+<div class="edit-recipe-container">
+    <h2>Edit Recipe</h2>
+    <form (ngSubmit)="updateRecipe(editedRecipe)" #editForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="editedRecipe.name" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="editedRecipe.description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="image">Image URL:</label>
+        <input type="text" class="form-control" id="image" name="image" [(ngModel)]="editedRecipe.image" required>
+      </div>
+      <div class="form-group">
+        <label for="cookingtime">Cooking Time (minutes):</label>
+        <input type="number" class="form-control" id="cookingtime" name="cookingtime" [(ngModel)]="editedRecipe.cookingtime" required>
+      </div>
+      <div class="form-group">
+        <label for="nutrition">Nutrition:</label>
+        <input type="number" class="form-control" id="nutrition" name="nutrition" [(ngModel)]="editedRecipe.nutrition" required>
+      </div>
+      <div class="form-group">
+        <label for="likeCount">Likes:</label>
+        <input type="number" class="form-control" id="likeCount" name="likeCount" [(ngModel)]="editedRecipe.likeCount">
+      </div>
+      <div class="form-group">
+        <label for="dislikeCount">Dislikes:</label>
+        <input type="number" class="form-control" id="dislikeCount" name="dislikeCount" [(ngModel)]="editedRecipe.dislikeCount">
+      </div>
+      <div class="form-group">
+        <label for="viewsCount">Views:</label>
+        <input type="number" class="form-control" id="viewsCount" name="viewsCount" [(ngModel)]="editedRecipe.viewsCount">
+      </div>
+      <button type="submit" class="btn btn-primary">Update Recipe</button>
+    </form>
+  </div>
+  

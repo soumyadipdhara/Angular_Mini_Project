@@ -1,0 +1,54 @@
+/* dashboard.styles.css */
+
+/* Center the content */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Style the header */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Style the log out button */
+  button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue color, you can change it */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  /* Style the table */
+  .table-data {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Style table headers */
+  .table-data th {
+    background-color: #007bff; /* Blue color, you can change it */
+    color: white;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  /* Style table cells */
+  .table-data td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Hover effect on table rows */
+  .table-data tr:hover {
+    background-color: #f2f2f2;
+  }
+  

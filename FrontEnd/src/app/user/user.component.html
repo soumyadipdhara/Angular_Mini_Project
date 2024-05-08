@@ -1,0 +1,13 @@
+<div *ngIf="recipes && recipes.length > 0">
+  <h2>Recipes</h2>
+  <ul>
+    <li *ngFor="let recipe of recipes" (click)="onRecipeClicked(recipe)">
+        <h3>{{ recipe.name }}</h3>
+      <p>{{ recipe.description }}</p>
+      
+    </li>
+  </ul>
+</div>
+<div *ngIf="recipes && recipes.length === 0">
+  <p>No recipes found.</p>
+</div>
