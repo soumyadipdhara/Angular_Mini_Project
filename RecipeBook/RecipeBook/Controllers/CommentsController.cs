@@ -100,6 +100,21 @@ namespace RecipeBook.Controllers
             return NoContent();
         }
 
+        // GET: api/Comments/ByRecipeId/5
+        [HttpGet("ByRecipeId/{recipeId}")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsByRecipeId(int recipeId)
+        {
+            var comments = await _context.Comments.Where(c => c.RecipeId == recipeId).ToListAsync();
+
+            if (comments == null || comments.Count == 0)
+            {
+                return NoContent(); // Return 204 No Content if no comments found
+            }
+
+            return comments;
+        }
+
+
         private bool CommentExists(int id)
         {
             return _context.Comments.Any(e => e.CommentId == id);

@@ -1,5 +1,12 @@
 /* styles.css */
+/* https://cdn.pixabay.com/photo/2018/10/12/12/32/security-3742114_640.jpg */
 
+body{
+    background-image: url('https://cdn.pixabay.com/photo/2018/10/12/12/32/security-3742114_640.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
 .container {
     max-width: 400px;
     margin: 50px auto;

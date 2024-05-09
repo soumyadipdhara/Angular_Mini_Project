@@ -11,6 +11,13 @@ namespace RecipeBook.Models
         [Required]
         public string Type { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        [Required]
+        [Display(Name= "Phone No")]
+        public string PhoneNo { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

@@ -7,6 +7,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AddRecipeComponentComponent } from './add-recipe-component/add-recipe-component.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { RecipedetailsComponent } from './recipedetails/recipedetails.component';
+import { FavouriteComponent } from './favourite/favourite.component';
 
 export const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -17,5 +18,6 @@ export const routes: Routes = [
     {path:'admin',component:AdminComponent},
     {path:'admin/addrecipe',component:AddRecipeComponentComponent},
     {path:'admin/editrecipe/:id',component:EditRecipeComponent},
-    {path:'recipedetails/:id', component:RecipedetailsComponent}
+    {path:'recipedetails/:id', component:RecipedetailsComponent},
+    {path:'user/favorites',component:FavouriteComponent}
 ];

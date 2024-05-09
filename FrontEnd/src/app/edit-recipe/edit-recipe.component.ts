@@ -33,6 +33,11 @@ export class EditRecipeComponent implements OnInit {
   }
 
   updateRecipe(recipe: Recipe) {
+    let uid=localStorage.getItem('userId');
+    this.editedRecipe.likeCount=recipe.likeCount;
+    this.editedRecipe.dislikeCount=recipe.dislikeCount;
+    this.editedRecipe.viewsCount=recipe.viewsCount;
+    this.editedRecipe.userId=Number(uid);
     this.http.put<Recipe>(`https://localhost:7143/api/Recipes/${recipe.recipeId}`, this.editedRecipe).subscribe(
       (data) => {
         const index = this.recipes.findIndex((r) => r.recipeId === data.recipeId);
@@ -47,5 +52,21 @@ export class EditRecipeComponent implements OnInit {
         console.error('Error updating recipe', error);
       }
     );
+  }
+
+  goHome(){
+    let utype=localStorage.getItem('userType')?.toLowerCase();
+    if(utype=='admin')
+      {
+        this.router.navigate(['admin']);
+      }
+      else{
+        this.router.navigate(['/user'])
+      }
+    
+  }
+
+  logout(){
+    this.router.navigate(['/login'])
   }
 }

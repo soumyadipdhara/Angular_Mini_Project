@@ -51,4 +51,16 @@ export class UserComponent implements OnInit {
     );
   }
 
+
+  viewFavourite(){
+    this.router.navigate(['user/favorites']);
+  }
+
+  goHome(){
+    this.router.navigate(['/user'])
+  }
+
+  logout(){
+    this.router.navigate(['/login'])
+  }
 }

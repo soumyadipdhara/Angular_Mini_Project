@@ -1,19 +1,48 @@
-<div *ngIf="recipe">
-  <button (click)="addToFavourite(recipe)">Add to favourite</button>
-  <h2>{{ recipe.name }}</h2>
-  <p>Description: {{ recipe.description }}</p>
-  <p>Preparation Time: {{ recipe.cookingtime }}</p>
-  <p>Likes: {{ recipe.likeCount }}</p>
-  <!-- Like button with conditional styling -->
-  <button (click)="likeRecipe(recipe)"
-          [ngClass]="{'liked': recipe.isLiked, 'disabled': recipe.isDisliked}">
-    Like
-  </button>
-  <!-- Dislike button with conditional styling -->
-  <button (click)="dislikeRecipe(recipe)"
-          [ngClass]="{'disliked': recipe.isDisliked, 'disabled': recipe.isLiked}">
-    Dislike
-  </button>
 
-  
+<nav class="navbar">
+  <div class="navbar-left">
+    <div class="logo">
+      <img class="logo-img" src="https://thumbs.dreamstime.com/b/recipe-book-calligraphy-cover-vector-illustration-emblem-label-print-chef-kitchen-hat-trendy-stylish-typography-inscription-166113287.jpg" alt="logo">
+    </div>
+    <div class="website-title">Recipe Book</div>
+  </div>
+  <div class="navbar-right">
+    <button (click)="goHome()">Home</button>
+    <button (click)="viewFavourite()">Favorites</button>
+    <button (click)="logout()">Logout</button>
+  </div>
+</nav>
+<div class="recipe-details" *ngIf="recipe">
+  <button (click)="addToFavourite(recipe)">Add to Favourite</button>
+  <h1>{{ recipe.name }}</h1>
+  <img src="{{ recipe.image }}" alt="{{ recipe.name }}" class="recipe-image">
+  <div class="recipe-info">
+    <p><strong>Description:</strong> {{ recipe.description }}</p>
+    <p><strong>Preparation Time:</strong> {{ recipe.cookingtime }} minutes</p>
+    <p><strong>Nutrition:</strong> {{ recipe.nutrition }} KCal</p>
+    <button class="btn" (click)="likeRecipe(recipe)" [ngClass]="{'liked': recipe.isLiked, 'disabled': recipe.isDisliked}"><strong>Like</strong><p class="likedislikecount">Likes:{{ recipe.likeCount }}</p></button>
+    <button class="btn" (click)="dislikeRecipe(recipe)" [ngClass]="{'disliked': recipe.isDisliked, 'disabled': recipe.isLiked}"><strong>Dislike</strong><p class="likedislikecount">Dislikes:{{ recipe.dislikeCount }}</p></button>
+  </div>
+  <hr>
+  <div class="comment-section">
+    <textarea [(ngModel)]="newComment" placeholder="Add your comment" (input)="isCommentEmpty()"></textarea>
+    <button (click)="addComment()" [disabled]="isCommentEmpty()">Post Comment</button>
+  </div>
+
+    <hr>
+  <!-- Display comments -->
+  <div class="comments" *ngIf="comments.length > 0; else noComments">
+    <h2>Comments</h2>
+    <ul>
+      <li *ngFor="let comment of comments">
+        <p>{{ comment.commentDesc }}</p>
+        <p class="commentby">Posted by:- {{ comment.userName }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- "No comments" message template -->
+  <ng-template #noComments>
+    <p>No comments yet, please add a comment.</p>
+  </ng-template>
 </div>

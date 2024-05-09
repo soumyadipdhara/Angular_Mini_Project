@@ -118,6 +118,22 @@ namespace RecipeBook.Controllers
             }
         }
 
+        // GET: api/Collections/ByUser/{userId}
+        [HttpGet("ByUser/{userId}")]
+        public async Task<ActionResult<IEnumerable<Collection>>> GetCollectionsByUser(int userId)
+        {
+            var collections = await _context.Collections
+                .Where(c => c.UserId == userId)
+                .ToListAsync();
+
+            if (collections == null || collections.Count == 0)
+            {
+                return NotFound("No collections found for the specified user.");
+            }
+
+            return collections;
+        }
+
 
         private bool CollectionExists(int id)
         {

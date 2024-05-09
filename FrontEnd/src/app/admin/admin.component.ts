@@ -38,6 +38,21 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['/admin/addrecipe']);
   }
 
+  viewDetails(recipe: Recipe){
+    this.router.navigate(['/recipedetails', recipe.recipeId], { state: { recipe } });
+    this.http.put(`https://localhost:7143/api/Recipes/recipes/${recipe.recipeId}/increment-views`, {}).subscribe(
+      () => {
+        console.log('View count incremented successfully');
+        // Optionally, you can navigate to the recipe details page after the view count is updated
+        this.router.navigate(['/recipedetails', recipe.recipeId], { state: { recipe } });
+      },
+      error => {
+        console.error('Error incrementing view count:', error);
+        // Handle error
+      }
+    );
+  }
+
   navigateToEdit(recipe: Recipe){
     this.router.navigate(['/admin/editrecipe', recipe.recipeId], { state: { recipe } });
   }
@@ -57,5 +72,12 @@ export class AdminComponent implements OnInit {
       );
     }
   }  
+
+  logout(){
+    this.router.navigate(['/login'])
+  }
   
+  goHome(){
+    this.router.navigate(['/admin']);
+  }
 }

@@ -1,0 +1,40 @@
+<nav class="navbar">
+    <div class="navbar-left">
+      <div class="logo">
+        <img class="logo-img" src="https://thumbs.dreamstime.com/b/recipe-book-calligraphy-cover-vector-illustration-emblem-label-print-chef-kitchen-hat-trendy-stylish-typography-inscription-166113287.jpg" alt="logo">
+      </div>
+      <div class="website-title">Recipe Book</div>
+    </div>
+    <div class="navbar-right">
+      <button (click)="goHome()">Home</button>
+      <button (click)="viewFavourite()">Favorites</button>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+<div class="container">
+    <div *ngIf="collections && collections.length > 0">
+      <h2>Your Favorite Collections</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let collection of collections">
+            <td><img class="recipe-img" src="{{collection.image}}" alt=""></td>
+            <td (click)="onCollectionClicked(collection)">{{ collection.name }}</td>
+            <td><button (click)="removeItem(collection)">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="collections && collections.length === 0">
+      <p>No favorite collections found.</p>
+    </div>
+  </div>
+  

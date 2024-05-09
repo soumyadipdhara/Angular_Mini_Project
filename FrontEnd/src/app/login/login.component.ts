@@ -18,17 +18,16 @@ export class LoginComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   signIn() {
-    let userType: string;
-if (this.name.toLowerCase() === 'admin') {
-  userType = 'Admin';
-} else {
-  userType = 'User';
-}
+//     let userType: string;
+// if (this.name.toLowerCase() === 'admin') {
+//   userType = 'Admin';
+// } else {
+//   userType = 'User';
+// }
 
 const user = {
   Name: this.name,
   Password: this.password,
-  Type: userType
 };
 
     this.http.post<any>("https://localhost:7143/api/Users/authenticate", user).subscribe({
@@ -36,7 +35,8 @@ const user = {
         console.log("Login successful:",data);
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.userId);
-        if (userType == "Admin") {
+        localStorage.setItem('userType', data.type);
+        if (data.type.toLowerCase() == "admin") {
           this.router.navigate(["admin"]);
         } else {
           this.router.navigate(["user"]);

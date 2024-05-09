@@ -1,3 +1,11 @@
+export interface Comment {
+  commentId: number;
+  commentDesc: string;
+  userId: number;
+  recipeId: number;
+  userName?: string;
+}
+
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -15,14 +23,18 @@ import { Observable } from 'rxjs';
 })
 export class RecipedetailsComponent implements OnInit {
   recipe: Recipe | undefined;
-  
+  comments: Comment[] = [];
+  newComment: string = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient,private router:Router) { 
+    this.comments = [];
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const recipeId = +params['id']; // Assuming the route parameter is named 'id'
+      const recipeId = +params['id'];
       this.fetchRecipeDetails(recipeId);
+      this.fetchComments(recipeId);
     });
   }
 
@@ -49,33 +61,24 @@ export class RecipedetailsComponent implements OnInit {
     const favoriteRecipe = {
       recipeId: recipe.recipeId,
       UserId: userId,
-      // Add other properties if needed
     };
-  
-    // Check if the recipe already exists in the user's collection
     this.http.get<boolean>(`https://localhost:7143/api/Collections/Exists?userId=${userId}&recipeId=${recipe.recipeId}`).subscribe(
       (recipeExists) => {
         if (recipeExists) {
-          console.log('Recipe is already in favorites.');
-          // Optionally, you can update the UI or display a message to the user
+          alert('Recipe is already in favorites.');
           return;
         }
-  
-        // If recipe not found in user's collection, add it
         this.http.post('https://localhost:7143/api/Collections', favoriteRecipe).subscribe(
           () => {
-            console.log('Recipe added to favorites successfully');
-            // Optionally, you can update the UI or display a message to the user
+            alert('Recipe added to favorites successfully');
           },
           error => {
             console.error('Error adding recipe to favorites:', error);
-            // Handle error
           }
         );
       },
       error => {
         console.error('Error checking if recipe exists in favorites:', error);
-        // Handle error
       }
     );
   }
@@ -90,17 +93,15 @@ likeRecipe(recipe: Recipe): void {
       recipe.dislikeCount--;
       recipe.isDisliked = false;
     }
-    // Call API to update like count
     this.updateLikeCount(recipe.recipeId, recipe.likeCount).subscribe(
       () => {
         console.log('Like count updated successfully.');
       },
       error => {
         console.error('Error updating like count:', error);
-        // Handle error
       }
     );
-    this.activeButton = 'like'; // Set the active button to 'like'
+    this.activeButton = 'like';
   }
 }
 
@@ -112,17 +113,15 @@ dislikeRecipe(recipe: Recipe): void {
       recipe.likeCount--;
       recipe.isLiked = false;
     }
-    // Call API to update dislike count
     this.updateDislikeCount(recipe.recipeId, recipe.dislikeCount).subscribe(
       () => {
         console.log('Dislike count updated successfully.');
       },
       error => {
         console.error('Error updating dislike count:', error);
-        // Handle error
       }
     );
-    this.activeButton = 'dislike'; // Set the active button to 'dislike'
+    this.activeButton = 'dislike';
   }
 }
   
@@ -137,5 +136,83 @@ dislikeRecipe(recipe: Recipe): void {
     const url = `https://localhost:7143/api/Recipes/recipes/${recipeId}/increment-dislikes`;
     return this.http.put(url, null);
   }
+
+
+  fetchComments(recipeId: number): void {
+    const url = `https://localhost:7143/api/Comments/ByRecipeId/${recipeId}`;
+    this.http.get<Comment[]>(url).subscribe(
+      (data) => {
+        // Fetch user details for each comment
+        this.comments = data;
+        this.comments.forEach((comment, index) => {
+          this.fetchUserDetails(comment.userId).subscribe(
+            (userData) => {
+              this.comments[index].userName = userData.name; // Assuming user name is stored in 'name' property
+            },
+            (error) => {
+              console.error('Error fetching user details:', error);
+            }
+          );
+        });
+      },
+      (error) => {
+        console.error('Error fetching comments:', error);
+      }
+    );
+  }
   
+  fetchUserDetails(userId: number): Observable<any> {
+    const url = `https://localhost:7143/api/Users/${userId}`;
+    return this.http.get<any>(url);
+  }
+  
+
+  isCommentEmpty(): boolean {
+    return !this.newComment.trim();
+  }
+
+  addComment(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      console.error('User ID not found.');
+      return;
+    }
+    const newComment: Comment = {
+      commentId: 0,
+      commentDesc: this.newComment,
+      userId: +userId,
+      recipeId: this.recipe?.recipeId || 0
+    };
+    this.http.post<Comment>('https://localhost:7143/api/Comments', newComment).subscribe(
+      (data) => {
+        console.log('Comment added successfully');
+        // Call fetchComments here to update comments after adding a new one
+        this.fetchComments(this.recipe!.recipeId); // or this.recipe?.recipeId if you prefer
+        this.newComment = '';
+      },
+      (error) => {
+        console.error('Error adding comment:', error);
+      }
+    );
+  }
+  
+  viewFavourite(){
+    this.router.navigate(['user/favorites']);
+  }
+
+  goHome(){
+    let utype=localStorage.getItem('userType')?.toLowerCase();
+    if(utype=='admin')
+      {
+        this.router.navigate(['admin']);
+      }
+      else{
+        this.router.navigate(['/user'])
+      }
+    
+  }
+
+  logout(){
+    this.router.navigate(['/login'])
+  }
 }

@@ -17,7 +17,8 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder, private router: Router, private http: HttpClient) {
     this.Register = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(30)]],
-      type: ['', [Validators.required]],
+      email:['',[Validators.required,Validators.email]],
+      phoneNo: ['', [Validators.required, Validators.pattern("[0-9 ]{10}")]],
       password: ['', [Validators.required]]
     });
   }
@@ -25,6 +26,7 @@ export class RegisterComponent {
   onSubmit() {
     if (this.Register.valid) {
       const userData = this.Register.value;
+      userData.type='User';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'

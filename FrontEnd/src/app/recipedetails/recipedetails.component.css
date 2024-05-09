@@ -1,14 +1,97 @@
-/* Add this CSS in your component's CSS file */
-button.liked {
-    color: green; /* Change the color to indicate liked */
-  }
-  
-  button.disliked {
-    color: red; /* Change the color to indicate disliked */
-  }
-  
-  button.disabled {
-    pointer-events: none; /* Disable pointer events for the button */
-    opacity: 0.5; /* Reduce opacity to visually indicate button is disabled */
-  }
-  
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #b2d2f2;
+  padding: 5px 10px;border-radius: 3px;
+
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img{
+  height: 50px;
+  width:50px;
+  padding: 0;
+  border: none;
+  border-radius: 25px; 
+}
+.logo {
+  margin-right: 10px;
+}
+
+.website-title {
+  font-size: 20px;
+}
+
+.navbar-right button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar-right button:hover {
+  background-color: #0056b3;
+}
+
+.recipe-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.recipe-details h1 {
+  font-size: 36px;
+}
+
+.recipe-image {
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+.recipe-info p {
+  margin-bottom: 10px;
+}
+
+.comment-section {
+  margin-top: 20px;
+}
+
+.comment-section textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comments h2 {
+  margin-bottom: 10px;
+}
+
+.comments ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comments li {
+  margin-bottom: 20px;
+}
+
+.commentby{
+  font-size: 12px;
+  margin-left: 10px;
+}
+.likedislikecount{
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.btn{
+  margin: 5px;
+}

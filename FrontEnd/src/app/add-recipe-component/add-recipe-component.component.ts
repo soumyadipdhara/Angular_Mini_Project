@@ -20,6 +20,11 @@ export class AddRecipeComponentComponent {
   constructor(private http: HttpClient,private router:Router) { }
 
   addRecipe() {
+    let uid=localStorage.getItem('userId');
+    this.newRecipe.viewsCount=0;
+    this.newRecipe.likeCount=0;
+    this.newRecipe.dislikeCount=0;
+    this.newRecipe.userId= Number(uid);
     this.http.post<Recipe>('https://localhost:7143/api/Recipes', this.newRecipe).subscribe(
       (data) => {
         this.recipes.push(data);
@@ -31,5 +36,20 @@ export class AddRecipeComponentComponent {
         console.error('Error adding recipe', error);
       }
     );
+  }
+  goHome(){
+    let utype=localStorage.getItem('userType')?.toLowerCase();
+    if(utype=='admin')
+      {
+        this.router.navigate(['admin']);
+      }
+      else{
+        this.router.navigate(['/user'])
+      }
+    
+  }
+
+  logout(){
+    this.router.navigate(['/login'])
   }
 }

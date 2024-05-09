@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+    background-image:url('https://miro.medium.com/v2/resize:fit:1400/1*4TJ-21e1MktGTwstdhPfmA.png');
+    /* background-position:; */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
