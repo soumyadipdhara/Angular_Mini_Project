@@ -13,15 +13,15 @@
   </div>
 </nav>
 <div class="recipe-details" *ngIf="recipe">
-  <button (click)="addToFavourite(recipe)">Add to Favourite</button>
+  <button class="favbtn" (click)="addToFavourite(recipe)">Add to Favourite</button>
   <h1>{{ recipe.name }}</h1>
   <img src="{{ recipe.image }}" alt="{{ recipe.name }}" class="recipe-image">
   <div class="recipe-info">
     <p><strong>Description:</strong> {{ recipe.description }}</p>
     <p><strong>Preparation Time:</strong> {{ recipe.cookingtime }} minutes</p>
     <p><strong>Nutrition:</strong> {{ recipe.nutrition }} KCal</p>
-    <button class="btn" (click)="likeRecipe(recipe)" [ngClass]="{'liked': recipe.isLiked, 'disabled': recipe.isDisliked}"><strong>Like</strong><p class="likedislikecount">Likes:{{ recipe.likeCount }}</p></button>
-    <button class="btn" (click)="dislikeRecipe(recipe)" [ngClass]="{'disliked': recipe.isDisliked, 'disabled': recipe.isLiked}"><strong>Dislike</strong><p class="likedislikecount">Dislikes:{{ recipe.dislikeCount }}</p></button>
+    <button class="likebtn" (click)="likeRecipe(recipe)" [ngClass]="{'liked': recipe.isLiked, 'disabled': recipe.isDisliked}"><strong>Like</strong><p class="likedislikecount">Likes:{{ recipe.likeCount }}</p></button>
+    <button class="dislikebtn" (click)="dislikeRecipe(recipe)" [ngClass]="{'disliked': recipe.isDisliked, 'disabled': recipe.isLiked}"><strong>Dislike</strong><p class="likedislikecount">Dislikes:{{ recipe.dislikeCount }}</p></button>
   </div>
   <hr>
   <div class="comment-section">

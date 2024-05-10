@@ -6,6 +6,7 @@ import { Collection } from '../collection';
 import { Recipe } from '../recipe.model';
 import { Router } from '@angular/router';
 import { error } from 'console';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-favourite',
@@ -17,7 +18,7 @@ import { error } from 'console';
 export class FavouriteComponent implements OnInit {
   collections: Collection[] = [];
 
-  constructor(private http: HttpClient,private router:Router) { }
+  constructor(private http: HttpClient,private router:Router, private userService:UserService) { }
 
   ngOnInit(): void {
     this.fetchCollectionsForCurrentUser();
@@ -76,6 +77,8 @@ export class FavouriteComponent implements OnInit {
     this.http.delete(`https://localhost:7143/api/Collections/${collection.collectionId}`,{}).subscribe(
       ()=>{
         alert("Deleted Succesfully");
+        this.collections=[];
+        this.fetchCollectionsForCurrentUser();
       },
       error=>{
         console.error("Error While removing",error);
@@ -99,6 +102,7 @@ export class FavouriteComponent implements OnInit {
   }
 
   logout(){
+    this.userService.logout();
     this.router.navigate(['/login'])
   }
 }

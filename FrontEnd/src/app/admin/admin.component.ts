@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Recipe } from '../recipe.model';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-admin',
@@ -17,7 +18,7 @@ export class AdminComponent implements OnInit {
   newRecipe: Recipe = {} as Recipe;
   editedRecipe: Recipe = {} as Recipe;
 
-  constructor(private http: HttpClient,private router:Router) { }
+  constructor(private http: HttpClient,private router:Router, private userService:UserService) { }
 
   ngOnInit(): void {
     this.loadRecipes();
@@ -74,6 +75,7 @@ export class AdminComponent implements OnInit {
   }  
 
   logout(){
+    this.userService.logout();
     this.router.navigate(['/login'])
   }
   

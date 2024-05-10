@@ -1,7 +1,8 @@
 body{
-    background-image:url('https://miro.medium.com/v2/resize:fit:1400/1*4TJ-21e1MktGTwstdhPfmA.png');
+    background-image:url('./assets/backg.png');
     /* background-position:; */
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 }
+

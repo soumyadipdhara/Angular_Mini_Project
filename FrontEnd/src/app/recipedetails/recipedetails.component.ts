@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router,RouterStateSnapshot  } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { Observable } from 'rxjs';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-recipedetails',
@@ -26,7 +27,7 @@ export class RecipedetailsComponent implements OnInit {
   comments: Comment[] = [];
   newComment: string = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient,private router:Router) { 
+  constructor(private route: ActivatedRoute, private http: HttpClient,private router:Router,private userService:UserService) { 
     this.comments = [];
   }
 
@@ -213,6 +214,7 @@ dislikeRecipe(recipe: Recipe): void {
   }
 
   logout(){
+    this.userService.logout();
     this.router.navigate(['/login'])
   }
 }

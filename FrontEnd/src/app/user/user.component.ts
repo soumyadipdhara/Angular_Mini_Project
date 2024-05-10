@@ -7,6 +7,7 @@ import { catchError } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { Recipe } from '../recipe.model';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -18,10 +19,15 @@ import { Router } from '@angular/router';
 export class UserComponent implements OnInit {
   recipes: any[]=[];
 
-  constructor(private http: HttpClient,private router:Router) { }
+  constructor(private http: HttpClient,private router:Router,private userService:UserService) { }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
     this.fetchRecipes();
+    
   }
 
   fetchRecipes(): void {
@@ -61,6 +67,7 @@ export class UserComponent implements OnInit {
   }
 
   logout(){
+    this.userService.logout();
     this.router.navigate(['/login'])
   }
 }

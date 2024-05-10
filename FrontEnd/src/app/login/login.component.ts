@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +16,9 @@ export class LoginComponent {
   name: string = "";
   password: string = "";
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private userService:UserService) {}
 
   signIn() {
-//     let userType: string;
-// if (this.name.toLowerCase() === 'admin') {
-//   userType = 'Admin';
-// } else {
-//   userType = 'User';
-// }
 
 const user = {
   Name: this.name,
@@ -32,6 +27,7 @@ const user = {
 
     this.http.post<any>("https://localhost:7143/api/Users/authenticate", user).subscribe({
       next: (data) => {
+        this.userService.loginvalue();
         console.log("Login successful:",data);
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.userId);

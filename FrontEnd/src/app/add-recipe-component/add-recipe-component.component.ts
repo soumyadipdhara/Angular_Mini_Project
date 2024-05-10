@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-add-recipe-component',
@@ -17,7 +18,7 @@ export class AddRecipeComponentComponent {
   newRecipe: Recipe = {} as Recipe;
   editedRecipe: Recipe = {} as Recipe;
 
-  constructor(private http: HttpClient,private router:Router) { }
+  constructor(private http: HttpClient,private router:Router, private userService:UserService) { }
 
   addRecipe() {
     let uid=localStorage.getItem('userId');
@@ -50,6 +51,7 @@ export class AddRecipeComponentComponent {
   }
 
   logout(){
+    this.userService.logout();
     this.router.navigate(['/login'])
   }
 }

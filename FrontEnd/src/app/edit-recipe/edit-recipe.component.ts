@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Recipe } from '../recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -16,7 +17,7 @@ export class EditRecipeComponent implements OnInit {
   editedRecipe!: Recipe;
   recipes: Recipe[] = [];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,private router:Router) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute,private router:Router,private userService:UserService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -67,6 +68,7 @@ export class EditRecipeComponent implements OnInit {
   }
 
   logout(){
+    this.userService.logout();
     this.router.navigate(['/login'])
   }
 }
